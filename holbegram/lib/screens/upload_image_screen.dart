@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:holbegram/methods/auth_methods.dart';
 import 'package:image_picker/image_picker.dart';
 
 // Screen for adding a profile picture during sign up.
@@ -61,6 +62,10 @@ class _AddPictureState extends State<AddPicture> {
 
   @override
   Widget build(BuildContext context) {
+    final String email = widget.email;
+    final String password = widget.password;
+    final String username = widget.username;
+
     return Scaffold(
       body: Center(
         child: Column(
@@ -73,6 +78,8 @@ class _AddPictureState extends State<AddPicture> {
                   : const AssetImage('assets/images/Sample_User_Icon.png')
                       as ImageProvider,
             ),
+            const SizedBox(height: 16),
+            Text(username),
             const SizedBox(height: 24),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -87,6 +94,40 @@ class _AddPictureState extends State<AddPicture> {
                   onPressed: selectImageFromGallery,
                 ),
               ],
+            ),
+            const SizedBox(height: 24),
+            SizedBox(
+              height: 48,
+              width: 200,
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.all(
+                    const Color.fromARGB(218, 226, 37, 24),
+                  ),
+                ),
+                onPressed: () async {
+                  final String result = await AuthMethode().signUpUser(
+                    email: email,
+                    password: password,
+                    username: username,
+                    file: _image,
+                  );
+
+                  if (!mounted) {
+                    return;
+                  }
+
+                  if (result == 'success') {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('success')),
+                    );
+                  }
+                },
+                child: const Text(
+                  'Next',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
             ),
           ],
         ),
