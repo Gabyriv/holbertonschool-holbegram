@@ -1,16 +1,47 @@
 # holbegram
 
-A new Flutter project.
+Holbegram is a Flutter app that recreates a social photo-sharing flow with
+authentication, profiles, posts, and basic navigation.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- Login and sign-up flows
+- Profile image upload (Cloudinary)
+- Post creation and feed display (Firestore)
+- Search grid for posts
+- Favorites saved locally during a session
 
-A few resources to get you started if this is your first Flutter project:
+## Requirements
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Flutter SDK
+- Firebase project with Auth + Firestore enabled
+- Cloudinary account with an unsigned upload preset
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Setup
+
+1. Install dependencies:
+
+   ```bash
+   flutter pub get
+   ```
+
+2. Configure Firebase for web:
+
+   ```bash
+   flutterfire configure
+   ```
+
+3. Update Cloudinary settings in `lib/screens/auth/methods/user_storage.dart`:
+   - `cloudinaryUrl`
+   - `cloudinaryPreset`
+
+## Run
+
+```bash
+flutter run -d chrome
+```
+
+## Notes
+
+- Enable Email/Password in Firebase Authentication.
+- If you see CORS errors for external images on web, replace them with assets.

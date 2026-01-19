@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:holbegram/methods/auth_methods.dart';
-import 'package:holbegram/main.dart';
+import 'package:holbegram/screens/home.dart';
 import 'package:holbegram/screens/signup_screen.dart';
 import 'package:holbegram/widgets/text_field.dart';
 
@@ -125,9 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const MyHomePage(
-                                title: 'Flutter Demo Home Page',
-                              ),
+                              builder: (context) => const Home(),
                             ),
                           );
                         }

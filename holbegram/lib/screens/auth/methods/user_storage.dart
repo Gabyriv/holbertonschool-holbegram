@@ -4,8 +4,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class StorageMethods {
-  final String cloudinaryUrl = "https://api.cloudinary.com/v1_1/your-cloud-name/image/upload";
-  final String cloudinaryPreset = "your-upload-preset";
+  final String cloudinaryUrl =
+      "https://api.cloudinary.com/v1_1/dbiihh5nj/image/upload";
+  final String cloudinaryPreset = "holbegram_unsigned";
 
   // Upload image to Cloudinary and return the secure URL.
   Future<String> uploadImageToCloudinary(

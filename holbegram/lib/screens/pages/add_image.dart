@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:holbegram/providers/user_provider.dart';
 import 'package:holbegram/screens/home.dart';
@@ -132,6 +133,15 @@ class _AddImageState extends State<AddImage> {
                   ),
                 ),
                 onPressed: () async {
+                  if (Firebase.apps.isEmpty) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Firebase not configured'),
+                      ),
+                    );
+                    return;
+                  }
+
                   if (_image == null) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Please select an image')),
@@ -139,11 +149,19 @@ class _AddImageState extends State<AddImage> {
                     return;
                   }
 
+                  final user = userProvider.user;
+                  if (user == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('User not loaded')),
+                    );
+                    return;
+                  }
+
                   final String result = await PostStorage().uploadPost(
                     _captionController.text,
-                    userProvider.user.uid,
-                    userProvider.user.username,
-                    userProvider.user.photoUrl,
+                    user.uid,
+                    user.username,
+                    user.photoUrl,
                     _image!,
                   );
 

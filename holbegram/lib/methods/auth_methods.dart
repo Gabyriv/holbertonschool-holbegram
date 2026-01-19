@@ -77,8 +77,11 @@ class AuthMethode {
   }
 
   // Fetch the current user's details from Firestore.
-  Future<Users> getUserDetails() async {
-    final User currentUser = _auth.currentUser!;
+  Future<Users?> getUserDetails() async {
+    final User? currentUser = _auth.currentUser;
+    if (currentUser == null) {
+      return null;
+    }
     final DocumentSnapshot snapshot =
         await _firestore.collection('users').doc(currentUser.uid).get();
 
