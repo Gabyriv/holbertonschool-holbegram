@@ -4,25 +4,30 @@ import 'package:holbegram/widgets/text_field.dart';
 
 // Sign up screen wrapper that accepts controllers from the caller.
 class SignUp extends StatefulWidget {
-  // Controller for the email input, owned by the caller.
+  // Controller for the email input, owned by the caller or created by default.
   final TextEditingController emailController;
-  // Controller for the username input, owned by the caller.
+  // Controller for the username input, owned by the caller or created by default.
   final TextEditingController usernameController;
-  // Controller for the password input, owned by the caller.
+  // Controller for the password input, owned by the caller or created by default.
   final TextEditingController passwordController;
-  // Controller for password confirmation input, owned by the caller.
+  // Controller for password confirmation input, owned by the caller or created by default.
   final TextEditingController passwordConfirmController;
   // Initial visibility flag for password text; default is true per requirement.
   final bool _passwordVisible;
 
-  const SignUp({
+  SignUp({
     super.key,
-    required this.emailController,
-    required this.usernameController,
-    required this.passwordController,
-    required this.passwordConfirmController,
+    TextEditingController? emailController,
+    TextEditingController? usernameController,
+    TextEditingController? passwordController,
+    TextEditingController? passwordConfirmController,
     bool passwordVisible = true,
-  }) : _passwordVisible = passwordVisible;
+  })  : emailController = emailController ?? TextEditingController(),
+        usernameController = usernameController ?? TextEditingController(),
+        passwordController = passwordController ?? TextEditingController(),
+        passwordConfirmController =
+            passwordConfirmController ?? TextEditingController(),
+        _passwordVisible = passwordVisible;
 
   @override
   State<SignUp> createState() => _SignUpState();
@@ -155,13 +160,11 @@ class _SignUpState extends State<SignUp> {
                 const Text('Have an account '),
                 TextButton(
                   onPressed: () {
-                    // Navigate to the login page with fresh controllers.
-                    Navigator.of(context).push(
+                    // Navigate to the login page.
+                    Navigator.push(
+                      context,
                       MaterialPageRoute(
-                        builder: (context) => LoginScreen(
-                          emailController: TextEditingController(),
-                          passwordController: TextEditingController(),
-                        ),
+                        builder: (context) => LoginScreen(),
                       ),
                     );
                   },

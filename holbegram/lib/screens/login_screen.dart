@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:holbegram/screens/signup_screen.dart';
 import 'package:holbegram/widgets/text_field.dart';
 
 // Login screen wrapper that accepts controllers from the caller.
 class LoginScreen extends StatefulWidget {
-  // Controller for the email input, owned by the caller.
+  // Controller for the email input, owned by the caller or created by default.
   final TextEditingController emailController;
-  // Controller for the password input, owned by the caller.
+  // Controller for the password input, owned by the caller or created by default.
   final TextEditingController passwordController;
   // Initial visibility flag for password text; default is true per requirement.
   final bool _passwordVisible;
 
-  const LoginScreen({
+  LoginScreen({
     super.key,
-    required this.emailController,
-    required this.passwordController,
+    TextEditingController? emailController,
+    TextEditingController? passwordController,
     bool passwordVisible = true,
-  }) : _passwordVisible = passwordVisible;
+  })  : emailController = emailController ?? TextEditingController(),
+        passwordController = passwordController ?? TextEditingController(),
+        _passwordVisible = passwordVisible;
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -139,7 +142,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   const Text("Don't have an account "),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      // Navigate to the sign up page.
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SignUp(),
+                        ),
+                      );
+                    },
                     child: const Text(
                       'Sign up',
                       style: TextStyle(
