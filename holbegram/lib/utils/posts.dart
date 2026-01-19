@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:holbegram/providers/favorite_provider.dart';
 import 'package:holbegram/providers/user_provider.dart';
 import 'package:holbegram/screens/pages/methods/post_storage.dart';
 import 'package:provider/provider.dart';
@@ -112,16 +113,27 @@ class _PostsState extends State<Posts> {
                       ),
                       const SizedBox(height: 8),
                       Row(
-                        children: const [
-                          SizedBox(width: 8),
-                          Icon(Icons.favorite_border),
-                          SizedBox(width: 8),
-                          Icon(Icons.chat_bubble_outline),
-                          SizedBox(width: 8),
-                          Icon(Icons.send),
-                          Spacer(),
-                          Icon(Icons.bookmark_border),
-                          SizedBox(width: 8),
+                        children: [
+                          const SizedBox(width: 8),
+                          const Icon(Icons.favorite_border),
+                          const SizedBox(width: 8),
+                          const Icon(Icons.chat_bubble_outline),
+                          const SizedBox(width: 8),
+                          const Icon(Icons.send),
+                          const Spacer(),
+                          IconButton(
+                            icon: const Icon(Icons.bookmark_border),
+                            onPressed: () {
+                              Provider.of<FavoriteProvider>(
+                                context,
+                                listen: false,
+                              ).toggleSave({
+                                'postId': postData['postId'],
+                                'postUrl': postData['postUrl'],
+                              });
+                            },
+                          ),
+                          const SizedBox(width: 8),
                         ],
                       ),
                     ],
