@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:holbegram/providers/user_provider.dart';
+import 'package:holbegram/screens/pages/methods/post_storage.dart';
 import 'package:provider/provider.dart';
 
 // Posts feed widget backed by Firestore.
@@ -78,6 +79,12 @@ class _PostsState extends State<Posts> {
                             IconButton(
                               icon: const Icon(Icons.more_horiz),
                               onPressed: () {
+                                final String postId =
+                                    (postData['postId'] ?? '') as String;
+                                final String publicId =
+                                    (postData['publicId'] ?? '') as String;
+
+                                PostStorage().deletePost(postId, publicId);
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     content: Text('Post Deleted'),

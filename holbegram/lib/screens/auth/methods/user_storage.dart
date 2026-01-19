@@ -7,6 +7,15 @@ class StorageMethods {
   final String cloudinaryUrl = "https://api.cloudinary.com/v1_1/your-cloud-name/image/upload";
   final String cloudinaryPreset = "your-upload-preset";
 
+  // Upload image to Cloudinary and return the secure URL.
+  Future<String> uploadImageToCloudinary(
+    Uint8List file,
+    String childName, {
+    bool isPost = false,
+  }) async {
+    return await uploadImageToStorage(isPost, childName, file) as String;
+  }
+
   Future uploadImageToStorage(
       bool isPost,
       String childName,
