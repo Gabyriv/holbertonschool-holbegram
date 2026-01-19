@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:holbegram/methods/auth_methods.dart';
+import 'package:holbegram/main.dart';
 import 'package:holbegram/screens/signup_screen.dart';
 import 'package:holbegram/widgets/text_field.dart';
 
@@ -105,7 +107,31 @@ class _LoginScreenState extends State<LoginScreen> {
                           const Color.fromARGB(218, 226, 37, 24),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () async {
+                        // Attempt login and show feedback on success.
+                        final String result = await AuthMethode().login(
+                          email: widget.emailController.text,
+                          password: widget.passwordController.text,
+                        );
+
+                        if (!mounted) {
+                          return;
+                        }
+
+                        if (result == 'success') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Login')),
+                          );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MyHomePage(
+                                title: 'Flutter Demo Home Page',
+                              ),
+                            ),
+                          );
+                        }
+                      },
                       child: const Text(
                         'Log in',
                         style: TextStyle(color: Colors.white),
