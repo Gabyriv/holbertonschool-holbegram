@@ -1,0 +1,15 @@
+import 'package:flutter/material.dart';
+
+// Favorite page placeholder.
+class Favorite extends StatelessWidget {
+  const Favorite({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(
+        child: Text('Favorite'),
+      ),
+    );
+  }
+}
